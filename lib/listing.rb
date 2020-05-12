@@ -13,4 +13,8 @@ class Listing
         @all_listings = all_movies
     end
 
+    def self.get_movies
+        @all_listings
+    end
+
 end
