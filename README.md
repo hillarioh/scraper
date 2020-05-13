@@ -8,9 +8,13 @@ This is a ruby capstone in the microverse program that entails creating of scrap
 
 - Ruby
 
+## Video Presentation
+
+[Video Link] (https://www.loom.com/share/0130c6eef4aa43c7a438967338d12e4d)
+
 ## Setup Installation
 
-                                              gem install nokogiri
+                                            gem install nokogiri
 
 nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
 
