@@ -7,6 +7,7 @@ require_relative '../lib/sale_item'
 # Get a Hash containing all movies from the website
 ALL_MOVIES = Lists.complete_list
 
+# Prints top five movies 
 def movie_rank
   puts 'Top movies in 2020'
   print 'Movie rank'
@@ -18,6 +19,7 @@ def movie_rank
     print "#{ALL_MOVIES[my_count].rank}."
     puts "\t#{ALL_MOVIES[my_count].movie_name}"
 
+    # If user wants to see full list 
     if my_count == 5
       puts 'Enter c to show full list or any key  to move to the next step'
       value = gets.chomp
@@ -44,31 +46,40 @@ def choose_movie(limit)
 end
 
 def see_gross(link)
-  doc = Nokogiri::HTML(URI.parse(link).open)
-
-  new_movie = Movie.new(doc)
-  puts new_movie.movie_title
-  puts new_movie.movie_description
-  puts new_movie.thumb
-
-  new_sale = Sale.new(doc)
-  new_sale.domestic_sales
-  new_sale.sales
+    doc = Nokogiri::HTML(URI.parse(link).open)
+    # takes link to be used to get movie details
+    new_movie = Movie.new(doc)
+    puts new_movie.movie_title
+    puts new_movie.movie_description
+    puts new_movie.thumb
+    # takes link to be used to get movie details
+    new_sale = Sale.new(doc)
+    new_sale.domestic_sales
+    new_sale.sales
 end
-
-# Calling the methods - chained choose_movie inside see_gross method
-arry = see_gross(choose_movie(movie_rank))
 
 # puts see_gross.count
-puts 'Search for movie gross by country: '
-check = gets.chomp.downcase
+def sale_search(arry)
 
-puts "country\t\t\trelease date\t\t\tOpening\t\t\tGross"
-arry.each do |n|
-  next unless (n.country =~ /\A#{check}/).zero?
+    puts 'Search for movie gross by country: '
+    check = gets.chomp.downcase
+    
+    puts "country\t\t\trelease date\t\t\tOpening\t\t\tGross"
 
-  print "#{n.country}\t\t\t"
-  print "#{n.release_date}\t\t\t"
-  print "#{n.opening}\t\t\t"
-  puts n.gross.to_s
+    # Search letters
+    arry.each do |n|
+      next unless (n.country =~ /\A#{check}/).zero?
+    
+      print "#{n.country}\t\t\t"
+      print "#{n.release_date}\t\t\t"
+      print "#{n.opening}\t\t\t"
+      puts n.gross.to_s
+    end
+    
 end
+
+# Execution
+# Calling the methods - chained choose_movie inside see_gross method
+arry = see_gross(choose_movie(movie_rank))
+sale_search(arry)
+
