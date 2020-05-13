@@ -4,30 +4,35 @@ require_relative '../lib/movie'
 require_relative '../lib/sales'
 require_relative '../lib/sale_item'
 
+# Get a Hash containing all movies from the website
 $all_movies = Lists.get_list
 
-puts "Top movies in 2020"
+def movie_rank
+    puts "Top movies in 2020"
+    print "Movie rank"
+    puts "\t\t\tMovie name"
 
-print "Movie rank"
-puts "\t\t\tMovie name"
+    my_count = 1
+    shown = 10
+    loop do
+        print "#{$all_movies[my_count].rank}."
+        puts "\t\t\t#{$all_movies[my_count].movie_name}"
 
-my_count = 1
-shown = 10
-loop do
-    print "#{all_movies[my_count].rank}."
-    puts "\t\t\t#{all_movies[my_count].movie_name}"
-
-    if my_count ==10
-        puts "To see more ......... press c or choose movie rank to see its gross returns"
-        value = gets.chomp
-        if value.downcase == 'c'
-            shown = $all_movies.count
-        else
-            break
-        end      
+        if my_count ==10
+            puts "To see more ......... press c or choose movie rank to see its gross returns"
+            value = gets.chomp
+            if value.downcase == 'c'
+                shown = $all_movies.count
+            else
+                break
+            end      
+        end
+        break if my_count == shown
+        my_count +=1
     end
-    break if my_count == shown
-    my_count +=1
+
+    return shown
+
 end
 
 def choose_movie(limit)
@@ -59,7 +64,7 @@ def see_gross(link)
 end
 
 # Calling the methods - chained choose_movie inside see_gross method
- arry = see_gross(choose_movie(shown))
+ arry = see_gross(choose_movie(movie_rank))
 
 # puts see_gross.count
 puts "Search for movie gross by country: "
