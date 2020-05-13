@@ -6,7 +6,6 @@ require_relative '../lib/sales'
 
 doc = Nokogiri::HTML(open("https://www.boxofficemojo.com/year/world/2020/?ref_=bo_hm_yrww"))
 
-
 p doc.title
 page = "https://www.boxofficemojo.com"
 # Returns movie title of top 20 movies
@@ -55,8 +54,8 @@ def choose_movie(limit)
     puts "Pick a movie to see its 2020 gross"
     choice = gets.chomp.to_i
     if choice.positive? && choice <= limit
-        link = all_movies[choice].link
-        see_gross(link)
+        link =Listing.get_movies[choice].link
+        return link
     else
         puts "wrong input"
         choose_movie(limit)
@@ -64,16 +63,14 @@ def choose_movie(limit)
     
 end
 
-choose_movie(shown)
-
 def see_gross(link)
 
     doc = Nokogiri::HTML(open(link))
 
     movie_title = doc.at_xpath('//*[@id="a-page"]/main/div/div[1]/div[1]/div/div/div[2]/h1').inner_text
     movie_desc = doc.at_xpath('//*[@id="a-page"]/main/div/div[1]/div[1]/div/div/div[2]/p').inner_text
-    puts movie_title
-    puts movie_desc
+    puts "MOVIE TITLE: #{movie_title}"
+    puts "MOVIE DESCRIPTION: #{movie_desc}"
 
     # Region-domestic - test here may return a nilClass
     table_value = 1
@@ -83,22 +80,20 @@ def see_gross(link)
         region, country, r_date, opening, gross = nil
         doc.xpath(path).each do |k| 
             region = k.at_css('/tr[1]/th').inner_text
+            table_row = 0
             k.css('tr').each do |n|
                 table_def =1
-                n.css('td').each do |n|
-                    case table_def
-                    when 1
-                        country = n.inner_text
-                    when 2
-                        r_date = n.inner_text
-                    when 3
-                        opening = n.inner_text
-                    else
-                        gross = n.inner_text
-                    end
-                    table_def +=1
-                end
+                table_row +=1
+                next if table_row ==1
+                next if table_row ==2
+               
+                country = n.css('/td[1]').inner_text.downcase
+                r_date = n.css('td[2]').inner_text.downcase
+                opening = n.css('td[3]').inner_text.downcase
+                gross = n.css('td[4]').inner_text.downcase
+
                 all_sales << Sale.new(region,country,r_date,opening,gross)
+                
             end
         end
         table_value +=1
@@ -108,5 +103,23 @@ def see_gross(link)
 
 end
 
-puts see_gross.count
+# Calling the methods - chained choose_movie inside see_gross method
+ arry = see_gross(choose_movie(shown))
+
+# puts see_gross.count
+puts "Search for movie gross by country: "
+check = gets.chomp.downcase
+
+puts "country\t\t\trelease date\t\t\tOpening\t\t\tGross"
+arry.each do |n|
+    if (n.country =~  /\A#{check}/) == 0
+        print "#{n.country}\t\t\t" 
+        print "#{n.release_date}\t\t\t"
+        print "#{n.opening}\t\t\t"
+        puts "#{n.gross}"
+    end
+    # p n.country
+end
+
+
 
