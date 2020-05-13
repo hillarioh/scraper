@@ -10,7 +10,7 @@ This is a ruby capstone in the microverse program that entails creating of scrap
 
 ## Video Presentation
 
-[Video Link] (https://www.loom.com/share/0130c6eef4aa43c7a438967338d12e4d)
+.[Video Link] (https://www.loom.com/share/0130c6eef4aa43c7a438967338d12e4d)
 
 ## Setup Installation
 
@@ -24,12 +24,11 @@ This will be for testing
 
 ## Getting Started
 
-You may use the following steps to get a local copy:
+Instructions
+We are getting data of Top Movies of the year 2020 from .[here](https://www.boxofficemojo.com/year/world/2020/?ref_=bo_hm_yrww)
 
-Clone project to your local machine
-cd to the project directory
-Open project in IDE/Text Editor
-Type ruby bubblesort.rb through the terminal to run the code or use the debug button in your text editor.
+
+
 
 ## 🤝 Contributing
 
