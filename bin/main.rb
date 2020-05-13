@@ -2,11 +2,12 @@
 require 'nokogiri'
 require 'open-uri'
 require_relative '../lib/listing'
+require_relative '../lib/movie'
 require_relative '../lib/sales'
+require_relative '../lib/sale_item'
 
 doc = Nokogiri::HTML(open("https://www.boxofficemojo.com/year/world/2020/?ref_=bo_hm_yrww"))
 
-p doc.title
 page = "https://www.boxofficemojo.com"
 # Returns movie title of top 20 movies
 
@@ -67,39 +68,14 @@ def see_gross(link)
 
     doc = Nokogiri::HTML(open(link))
 
-    movie_title = doc.at_xpath('//*[@id="a-page"]/main/div/div[1]/div[1]/div/div/div[2]/h1').inner_text
-    movie_desc = doc.at_xpath('//*[@id="a-page"]/main/div/div[1]/div[1]/div/div/div[2]/p').inner_text
-    puts "MOVIE TITLE: #{movie_title}"
-    puts "MOVIE DESCRIPTION: #{movie_desc}"
+    new_movie = Movie.new(doc)
+    puts new_movie.get_movie_title
+    puts new_movie.get_movie_description
+    puts new_movie.get_thumb
 
-    # Region-domestic - test here may return a nilClass
-    table_value = 1
-    all_sales = []
-    4.times do
-        path = '//*[@id="a-page"]/main/div/div[4]/div/div/table[' + "#{table_value.to_s}" +"]"    
-        region, country, r_date, opening, gross = nil
-        doc.xpath(path).each do |k| 
-            region = k.at_css('/tr[1]/th').inner_text
-            table_row = 0
-            k.css('tr').each do |n|
-                table_def =1
-                table_row +=1
-                next if table_row ==1
-                next if table_row ==2
-               
-                country = n.css('/td[1]').inner_text.downcase
-                r_date = n.css('td[2]').inner_text.downcase
-                opening = n.css('td[3]').inner_text.downcase
-                gross = n.css('td[4]').inner_text.downcase
-
-                all_sales << Sale.new(region,country,r_date,opening,gross)
-                
-            end
-        end
-        table_value +=1
-    end
-
-    return all_sales
+    new_sale = Sale.new(doc)
+    new_sale.get_domestic_sales
+    return new_sale.get_sales    
 
 end
 
@@ -118,7 +94,6 @@ arry.each do |n|
         print "#{n.opening}\t\t\t"
         puts "#{n.gross}"
     end
-    # p n.country
 end
 
 
