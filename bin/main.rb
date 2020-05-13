@@ -1,36 +1,15 @@
 #!/usr/bin/env ruby
-require 'nokogiri'
-require 'open-uri'
-require_relative '../lib/listing'
+require_relative '../lib/lists'
 require_relative '../lib/movie'
 require_relative '../lib/sales'
 require_relative '../lib/sale_item'
 
-doc = Nokogiri::HTML(open("https://www.boxofficemojo.com/year/world/2020/?ref_=bo_hm_yrww"))
+$all_movies = Lists.get_list
 
-page = "https://www.boxofficemojo.com"
-# Returns movie title of top 20 movies
-
-rank = 1
-all_movies = Hash.new
-doc.css('tr').each do |x| 
-    x.css('td.mojo-field-type-release_group').each do  |y|
-        y.css('a').each do |z|  
-            listed = Listing.new(rank,y.inner_text, page + z.attr("href"))
-            all_movies[rank]=listed
-        end
-        rank +=1
-    end 
-end
-
-# Entering all movie listing to List class using class method
-Listing.enter_all(all_movies)
 puts "Top movies in 2020"
 
 print "Movie rank"
 puts "\t\t\tMovie name"
-
-p all_movies.count
 
 my_count = 1
 shown = 10
@@ -42,7 +21,7 @@ loop do
         puts "To see more ......... press c or choose movie rank to see its gross returns"
         value = gets.chomp
         if value.downcase == 'c'
-            shown = all_movies.count
+            shown = $all_movies.count
         else
             break
         end      
@@ -55,7 +34,7 @@ def choose_movie(limit)
     puts "Pick a movie to see its 2020 gross"
     choice = gets.chomp.to_i
     if choice.positive? && choice <= limit
-        link =Listing.get_movies[choice].link
+        link =$all_movies[choice].link
         return link
     else
         puts "wrong input"
