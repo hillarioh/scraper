@@ -30,9 +30,9 @@ class Sale
           next if table_row == 2
 
           country = n.css('/td[1]').inner_text.downcase
-          r_date = n.css('td[2]').inner_text.downcase
-          opening = n.css('td[3]').inner_text.downcase
-          gross = n.css('td[4]').inner_text.downcase
+          r_date = n.css('td[2]').inner_text.downcase.gsub(/\n\s+/, '')
+          opening = n.css('td[3]').inner_text.downcase.gsub(/\n\s+/, '')
+          gross = n.css('td[4]').inner_text.downcase.gsub(/\n\s+/, '')
           all_sales << SaleItem.new(region, country, r_date, opening, gross)
         end
       end
