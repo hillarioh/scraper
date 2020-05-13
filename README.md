@@ -10,7 +10,7 @@ This is a ruby capstone in the microverse program that entails creating of scrap
 
 ## Video Presentation
 
-.[Video Link] (https://www.loom.com/share/0130c6eef4aa43c7a438967338d12e4d)
+[Video Link](https://www.loom.com/share/0130c6eef4aa43c7a438967338d12e4d)
 
 ## Setup Installation
 
@@ -26,8 +26,20 @@ This will be for testing
 
 Instructions
 We are getting data of Top Movies of the year 2020 from .[here](https://www.boxofficemojo.com/year/world/2020/?ref_=bo_hm_yrww)
+1. Run bin/main.rb
+- It will show the Top 5 Movies and the list can be expanded by pressing c
 
+![intro](./intro.png)
 
+2. Enter the rank number of movie you want to analyse from the list given
+- It will show you movie details and various returns
+
+![movie](./movie.png)
+
+3. Search for returns by country
+- It will show all countries beginning with that name
+
+![search](./search.png)
 
 
 ## 🤝 Contributing

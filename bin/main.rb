@@ -54,7 +54,7 @@ def see_gross(link)
   puts new_movie.thumb
   # takes link to be used to get movie details
   new_sale = Sale.new(doc)
-  new_sale.domestic_sales
+  puts new_sale.domestic_sales
   new_sale.sales
 end
 
@@ -67,7 +67,7 @@ def sale_search(arry)
 
   # Search letters
   arry.each do |n|
-    next unless (n.country =~ /\A#{check}/).zero?
+    next unless n.country =~ /\A#{check}/
 
     print "#{n.country}\t\t\t"
     print "#{n.release_date}\t\t\t"
