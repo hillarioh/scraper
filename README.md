@@ -22,6 +22,11 @@ nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath an
 
 This will be for testing
 
+                                            gem install colorize
+                                            gem install win32console  # For Windows only
+
+Ruby gem for colorizing text using ANSI escape sequences. Extends String class or add a ColorizedString with methods to set text color, background color and text effects.
+
 ## Getting Started
 
 Instructions
@@ -29,17 +34,17 @@ We are getting data of Top Movies of the year 2020 from .[here](https://www.boxo
 1. Run bin/main.rb
 - It will show the Top 5 Movies and the list can be expanded by pressing c
 
-![intro](./intro.png)
+![intro](./intro1.png)
 
 2. Enter the rank number of movie you want to analyse from the list given
 - It will show you movie details and various returns
 
-![movie](./movie.png)
+![movie](./movie1.png)
 
 3. Search for returns by country
 - It will show all countries beginning with that name
 
-![search](./search.png)
+![search](./search1.png)
 
 
 ## 🤝 Contributing

@@ -8,7 +8,7 @@ class Movie
 
   def movie_title
     movie_title = @docs.at_xpath('//*[@id="a-page"]/main/div/div[1]/div[1]/div/div/div[2]/h1').inner_text
-    "MOVIE TITLE: #{movie_title}"
+    movie_title.to_s
   end
 
   def movie_description
