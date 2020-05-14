@@ -69,7 +69,10 @@ module Main
 
       count += 1
     end
+    search_results(arry, count, check)
+  end
 
+  def self.search_results(arry, count, check)
     puts "You have #{count} matches"
     arry.each do |n|
       next unless n.country =~ /\A#{check}/

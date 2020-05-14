@@ -26,6 +26,6 @@ class Movie
 
     distributor = my_details.xpath('//*[@id="a-page"]/main/div/div[3]/div[4]/div[1]/span[2]/text()').inner_text
 
-    "Time: #{running_time}\t\t\tDistributor: #{distributor}"
+    "Other: #{running_time}\t\t\tDistributor: #{distributor}"
   end
 end
