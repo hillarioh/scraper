@@ -61,6 +61,7 @@ module Main
 
   # puts see_gross.count
   def self.sale_search(arry)
+    raise 'Empty array' if arry.size==0
     puts 'Search for movie gross by country: '
     check = gets.chomp.downcase
 
