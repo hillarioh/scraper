@@ -15,7 +15,6 @@ class Sale
   end
 
   def sales
-    # loop by Regions which are represented by table- test here may return a nilClass
     table_value = 1
     all_sales = []
     4.times do

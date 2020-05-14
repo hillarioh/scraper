@@ -5,10 +5,8 @@ require_relative '../lib/sales'
 require_relative '../lib/sale_item'
 
 module Main
-  # Get a Hash containing all movies from the website
   ALL_MOVIES = Lists.complete_list
 
-  # Prints top five movies
   def self.movie_rank
     puts 'Top movies in 2020'
     print 'Movie rank'
@@ -19,8 +17,6 @@ module Main
     loop do
       print "#{ALL_MOVIES[my_count].rank}."
       puts "\t#{ALL_MOVIES[my_count].movie_name}"
-
-      # If user wants to see full list
       if my_count == 5
         puts 'Enter c to show full list or any key  to move to the next step'
         value = gets.chomp
@@ -48,18 +44,17 @@ module Main
 
   def self.see_gross(link)
     doc = Nokogiri::HTML(URI.parse(link).open)
-    # takes link to be used to get movie details
+
     new_movie = Movie.new(doc)
     puts new_movie.movie_title
     puts new_movie.movie_description
     puts new_movie.thumb
-    # takes link to be used to get movie details
+
     new_sale = Sale.new(doc)
     puts new_sale.domestic_sales
     new_sale.sales
   end
 
-  # puts see_gross.count
   def self.sale_search(arry)
     raise 'Empty array' if arry.empty?
 
@@ -68,7 +63,6 @@ module Main
 
     puts "country\t\t\trelease date\t\t\tOpening\t\t\tGross"
 
-    # Search letters
     count = 0
     arry.each do |n|
       next unless n.country =~ /\A#{check}/
@@ -88,7 +82,5 @@ module Main
   end
 end
 
-# Execution
-# Calling the methods - chained choose_movie inside see_gross method
 arry = Main.see_gross(Main.choose_movie(Main.movie_rank))
 Main.sale_search(arry)
